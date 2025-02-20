@@ -20,7 +20,7 @@ namespace BLsite
 
             if (NumberOfRecipes == 1)
             {
-                Value = 1000;
+                this.Value = 1000;
             }
             else
             {
@@ -32,11 +32,11 @@ namespace BLsite
 
                 if (NumberOfRecipes < 50)
                 {
-                    Value += 20; 
+                    this.Value += 20; 
                 }
                 else
                 {
-                    Value += 100; 
+                    this.Value += 100; 
                 }
             }
 

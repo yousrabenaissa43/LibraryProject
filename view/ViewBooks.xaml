@@ -1,0 +1,84 @@
+﻿<Window x:Class="LibraryProject.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:LibraryProject.ViewModel"
+        Title="MvVM_Names" Height="468" Width="429">
+
+    <!-- Déclaration du ViewModel -->
+    <Window.DataContext>
+        <vm:ViewModelBooks/>
+    </Window.DataContext>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label>Books :</Label>
+
+        <!-- ListBox liée à la collection Names -->
+        <ListBox Grid.Row="1" ItemsSource="{Binding Books}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <!-- Display Book Information -->
+                    <StackPanel>
+                        <TextBlock Text="{Binding Title}" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Author.Name}" />
+                        <!-- Display Author's Name -->
+                        <TextBlock Text="{Binding Value}" />
+                        <TextBlock Text="{Binding Serial}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+
+        <!-- Zone de texte et bouton pour ajouter des noms -->
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="5,0,0,0">
+            <!-- TextBox liée à la propriété NewName -->
+            <ComboBox ItemsSource="{Binding BookTypes}"  Text="{Binding BookType, UpdateSourceTrigger=PropertyChanged}" Height="25" />
+            <Label>Serial :</Label>
+            <TextBox Text="{Binding Serial, UpdateSourceTrigger=PropertyChanged}" Height="25" />
+            <Label>Title :</Label>
+            <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Height="25" />
+            <Label>RecipeNumber :</Label>
+            <TextBox Text="{Binding RecipeNumber, UpdateSourceTrigger=PropertyChanged}" Height="25" />
+            <Label>Type Of Magic :</Label>
+            <ComboBox ItemsSource="{Binding MagicTypes}" Text="{Binding TypeOfMagic, UpdateSourceTrigger=PropertyChanged}" Height="25" />
+            <Label>Author :</Label>
+            <ComboBox ItemsSource="{Binding Authors}"
+          SelectedValue="{Binding AuthorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+          SelectedValuePath="AuthorId"
+          Height="25"
+          ToolTipService.ShowDuration="20000">
+                <!-- Triggers data loading -->
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Biography}" FontStyle="Italic"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Button Command="{Binding AddBookCommand}" Content="Add Book"  Height="25"/>
+
+            <Button Command="{Binding DisplayBooksCommand}" Content="Display Books"  Height="25"/>
+            
+            <Label Content="{Binding MessageError}" Foreground="Red" HorizontalAlignment="Center"/>
+
+            <!-- Bouton lié à la commande AddName -->
+        </StackPanel>
+        
+        <!-- Error Message Label -->
+        
+
+    </Grid>
+
+</Window>

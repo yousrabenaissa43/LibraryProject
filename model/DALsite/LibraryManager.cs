@@ -17,21 +17,20 @@ namespace DALsite
                     throw new ArgumentException("Invalid author ID.");
                 }
 
-                var spellBook = new SpellBook
+                SpellBook spellBook = new SpellBook
                 {
                     Serial = serial,
                     Title = title,
                     magicType = typeOfMagic,
+                    Value = 0,
                     AuthorId = authorId,
                    
                 };
-
+                spellBook.CalculatedExtandedValue();
+                
                 // Add to DB Context
                 context.SpellBooks?.Add(spellBook);
-                context.SaveChanges();
-
-                // Call after saving, in case it needs saved data
-                spellBook.CalculatedExtandedValue();
+                
                 context.SaveChanges();
             }
         }
@@ -42,22 +41,20 @@ namespace DALsite
             using (var context = new LibraryContext())
             {
 
-                var recipeBook = new RecipeBook
+                RecipeBook recipeBook = new RecipeBook
                 {
                     Serial = serial,
                     Title = title,
                     NumberOfRecipes = numberOfRecipes,
+                    Value = 0,
                     AuthorId = authorId,
                    
                 };
-
+                recipeBook.CalculatedExtandedValue();
                 // Add to DB Context
                 context.RecipeBooks?.Add(recipeBook);
                 context.SaveChanges();
-
-                // Call after saving
-                recipeBook.CalculatedExtandedValue();
-                context.SaveChanges();
+            
             }
         }
 

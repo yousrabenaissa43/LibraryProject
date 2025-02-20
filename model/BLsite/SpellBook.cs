@@ -21,15 +21,15 @@ namespace BLsite
             base.CalculatedValue();
             if(magicType == MagicType.Enchantment)
             {
-                Value = Value * 5;
+                this.Value = Value * 5;
             }
             if (magicType == MagicType.Transmutation)
             {
-                Value = Value * 15;
+                this.Value = Value * 15;
             }
             if (magicType == MagicType.Cruse)
             {
-                Value = Value * 2;
+                this.Value = Value * 2;
             }
         }
     }
