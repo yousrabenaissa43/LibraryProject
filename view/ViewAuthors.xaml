@@ -1,0 +1,52 @@
+﻿<Window x:Class="LibraryProject.ViewAuthors"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:LibraryProject.ViewModel"
+        Title="Authors" Height="400" Width="450">
+
+    <Window.DataContext>
+        <vm:ViewModelAuthors/>
+    </Window.DataContext>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Authors List:" FontWeight="Bold"/>
+
+        <!-- Liste des auteurs -->
+        <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Authors}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Biography}" FontStyle="Italic"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!-- Ajout d'un nouvel auteur + Bouton d'affichage -->
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
+            <Label Content="Name:"/>
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Height="25"/>
+
+            <Label Content="Biography:"/>
+            <TextBox Text="{Binding Biography, UpdateSourceTrigger=PropertyChanged}" Height="50" AcceptsReturn="True"/>
+
+            <Button Command="{Binding AddAuthorCommand}" Content="Add Author" Height="30" Margin="5"/>
+
+            <Button Command="{Binding DisplayAuthorsCommand}" Content="Display Authors" Height="30" Margin="5"/>
+
+            <Label Content="{Binding MessageError}" Foreground="Red" HorizontalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+
+</Window>
