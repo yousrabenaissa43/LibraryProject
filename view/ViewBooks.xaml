@@ -70,14 +70,14 @@
             <Button Command="{Binding AddBookCommand}" Content="Add Book"  Height="25"/>
 
             <Button Command="{Binding DisplayBooksCommand}" Content="Display Books"  Height="25"/>
-            
+
             <Label Content="{Binding MessageError}" Foreground="Red" HorizontalAlignment="Center"/>
 
             <!-- Bouton lié à la commande AddName -->
         </StackPanel>
-        
+
         <!-- Error Message Label -->
-        
+
 
     </Grid>
 
