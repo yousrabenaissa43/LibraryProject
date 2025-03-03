@@ -1,0 +1,77 @@
+﻿<Window x:Class="LibraryProject.ViewLoans"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:LibraryProject.ViewModel"
+        Title="Loans" Height="500" Width="600">
+
+    <Window.DataContext>
+        <vm:ViewModelLoans/>
+    </Window.DataContext>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Loans List:" FontWeight="Bold"/>
+
+        <!-- Liste des prêts -->
+        <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Loans}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding LoanId}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Book.Title}" />
+                        <TextBlock Text="{Binding LibraryMember.FullName}" />
+                        <TextBlock Text="{Binding LoanDate, StringFormat='Loan Date: {0:yyyy-MM-dd}'}"/>
+                        <TextBlock Text="{Binding DueDate, StringFormat='Due Date: {0:yyyy-MM-dd}'}"/>
+                        <TextBlock Text="{Binding ReturnDate, StringFormat='Return Date: {0:yyyy-MM-dd}', TargetNullValue='Not Returned'}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!-- Formulaire d'ajout de prêt -->
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
+            <Label Content="Book:"/>
+            <ComboBox ItemsSource="{Binding Books}" 
+                      SelectedValue="{Binding BookId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValuePath="BookId" Height="25">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Title}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Label Content="Member:"/>
+            <ComboBox ItemsSource="{Binding Members}" 
+                      SelectedValue="{Binding MemberId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValuePath="MemberId" Height="25">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding FullName}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Label Content="Loan Date:"/>
+            <DatePicker SelectedDate="{Binding LoanDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="25"/>
+
+            <Label Content="Due Date:"/>
+            <DatePicker SelectedDate="{Binding DueDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="25"/>
+
+            <Button Command="{Binding AddLoanCommand}" Content="Add Loan" Height="30" Margin="5"/>
+            <Button Command="{Binding DisplayLoansCommand}" Content="Display Loans" Height="30" Margin="5"/>
+
+            <Label Content="{Binding MessageError}" Foreground="Red" HorizontalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+
+</Window>
