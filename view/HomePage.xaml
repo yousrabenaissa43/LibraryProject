@@ -1,12 +1,25 @@
-﻿<Window x:Class="LibraryProject.view.HomePage"
+﻿<Window x:Class="LibraryProject.HomePage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LibraryProject.view"
-        mc:Ignorable="d"
-        Title="HomePage" Height="450" Width="800">
+        xmlns:vm="clr-namespace:LibraryProject.ViewModel"
+        Title="Library Management" Height="300" Width="400">
+
+    <Window.DataContext>
+        <vm:ViewModelHome/>
+    </Window.DataContext>
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0" Content="📚 Manage Books" Command="{Binding OpenBooksCommand}" Height="50" FontSize="16"/>
+        <Button Grid.Row="1" Content="✍ Manage Authors" Command="{Binding OpenAuthorsCommand}" Height="50" FontSize="16"/>
+        <Button Grid.Row="2" Content="📖 Manage Loans" Command="{Binding OpenLoansCommand}" Height="50" FontSize="16"/>
+        <Button Grid.Row="3" Content="👤 Manage Members" Command="{Binding OpenMembersCommand}" Height="50" FontSize="16"/>
     </Grid>
+
 </Window>
